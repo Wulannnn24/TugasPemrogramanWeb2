@@ -1,8 +1,39 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Contollers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 
+Route::get('posts', [App\Http\Controllers\PostController::class, 'index']);
+Route::get('posts/{id}', [App\Http\Controllers\PostController::class, 'show']);
+Route::post('posts', [App\Http\Controllers\PostController::class, 'store']);
+Route::put('posts/{id}', [App\Http\Controllers\PostController::class, 'update']);
+Route::delete('posts/{id}', [App\Http\Controllers\PostController::class, 'destroy']);
+
+
+Route::get('tentang', [PageController::class, 'about']);
+
+
+Route::get('/profil', function () {
+    return response()->json([
+        'nama' => 'Wulandari',
+        'email' => 'wulann24dari@gmail.com',
+        'umur' => 20
+    ]);
+});
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/redirect', function() {
+    return redirect('/home');
+});
+
+Route::get('/welcome', function() {
     return view('welcome');
 });
 
